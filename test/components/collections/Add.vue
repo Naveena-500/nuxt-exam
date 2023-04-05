@@ -42,9 +42,11 @@
 const taskName = ref("");
 
 const emit = defineEmits(["save-task", "hide"]);
+// Close modal
 const closeModal = (close) => {
   emit("hide", close);
 };
+// Save task
 const saveTask = (close) => {
   emit("hide", close);
   emit("save-task", taskName.value);

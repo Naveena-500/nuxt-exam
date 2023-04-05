@@ -43,10 +43,12 @@ const props = defineProps({
 });
 const taskName = ref("");
 taskName.value = props.editData ? props.editData.name : "";
+// Close modal
 const emit = defineEmits(["hide", "update-task"]);
 const closeModal = (close) => {
   emit("hide", close);
 };
+// Update task
 const updateTask = (close) => {
   emit("hide", close);
   emit("update-task", props.editData, taskName);

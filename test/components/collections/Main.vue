@@ -1,5 +1,6 @@
 <template>
   <div class="bg-white p-4 sm:px-6">
+    <!-- List tasks -->
     <CollectionsList
       :tasks="tasks"
       @edit-task="editTask"
@@ -55,6 +56,7 @@
           </div>
         </Dialog>
       </TransitionRoot>
+      <!-- Edit Modal -->
       <TransitionRoot as="template" :show="editModel">
         <Dialog as="div" class="relative z-10" @close="editModel = false">
           <TransitionChild
@@ -155,13 +157,14 @@ const { pending, data: tasks } = useAuthLazyFetch(props.getUrl, {});
 const openModel = () => {
   open.value = true;
 };
+// Close modal
 const closeModel = (e: any) => {
   editModel.value = false;
   open.value = false;
   open.value = e;
 };
+// Save tasks
 const saveTask = async (task: string) => {
-  console.log("task----", task);
   const { data } = await useAuthLazyFetchPost(
     `${props.url}/${props.entity}/${props.entityId}`,
     {
@@ -180,14 +183,15 @@ const saveTask = async (task: string) => {
       },
     }
   );
-  console.log("nbczxmnc===", data.value);
   tasks.value.push(data.value);
 };
+// Edit Task
 const editTask = (data: object) => {
   editModel.value = true;
   open.value = false;
   editData.value = data;
 };
+// Update tasks
 const updateTask = async (editedItem: any, name: string) => {
   useAuthLazyFetchPut(`${props.url}/${editedItem.uid}`, {
     body: {
@@ -209,6 +213,7 @@ const updateTask = async (editedItem: any, name: string) => {
   );
   if (taskIndex != -1) tasks.value[taskIndex].name = name;
 };
+// Delete tasks
 const deleteTask = (uid: any) => {
   useAuthLazyFetchDelete(`${props.url}/${uid}`, {});
   let taskIndex = tasks.value.findIndex((data: any) => data.uid === uid);
