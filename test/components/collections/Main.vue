@@ -3,8 +3,8 @@
     <!-- List tasks -->
     <CollectionsList
       :tasks="tasks"
-      @edit-task="editTask"
-      @delete-task="deleteTask"
+      @edit="edit"
+      @delete="Delete"
     ></CollectionsList>
     <div>
       <button
@@ -94,7 +94,7 @@
                     :editData="editData"
                     :editModel="editModel"
                     @hide="closeModel"
-                    @update-task="updateTask"
+                    @update="update"
                   ></CollectionsEdit>
                 </DialogPanel>
               </TransitionChild>
@@ -186,13 +186,13 @@ const saveTask = async (task: string) => {
   tasks.value.push(data.value);
 };
 // Edit Task
-const editTask = (data: object) => {
+const edit = (data: object) => {
   editModel.value = true;
   open.value = false;
   editData.value = data;
 };
 // Update tasks
-const updateTask = async (editedItem: any, name: string) => {
+const update = async (editedItem: any, name: string) => {
   useAuthLazyFetchPut(`${props.url}/${editedItem.uid}`, {
     body: {
       project_id: props.project_id,
@@ -214,7 +214,7 @@ const updateTask = async (editedItem: any, name: string) => {
   if (taskIndex != -1) tasks.value[taskIndex].name = name;
 };
 // Delete tasks
-const deleteTask = (uid: any) => {
+const Delete = (uid: any) => {
   useAuthLazyFetchDelete(`${props.url}/${uid}`, {});
   let taskIndex = tasks.value.findIndex((data: any) => data.uid === uid);
   if (taskIndex != -1) tasks.value.splice(taskIndex, 1);

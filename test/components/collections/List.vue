@@ -29,7 +29,7 @@
               class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
               <div class="py-1">
-                <MenuItem v-slot="{ active }" @click="editTask(task)">
+                <MenuItem v-slot="{ active }" @click="edit(task)">
                   <a
                     href="#"
                     :class="[
@@ -40,7 +40,7 @@
                     <span>Edit</span>
                   </a>
                 </MenuItem>
-                <MenuItem v-slot="{ active }" @click="deleteTask(task.uid)">
+                <MenuItem v-slot="{ active }" @click="Delete(task.uid)">
                   <a
                     href="#"
                     :class="[
@@ -80,13 +80,13 @@ import {
 const props = defineProps({
   tasks: Array,
 });
-const emit = defineEmits(["edit-task", "delete-task"]);
+const emit = defineEmits(["edit", "delete"]);
 // Edit Task
-const editTask = (data) => {
-  emit("edit-task", data);
+const edit = (data) => {
+  emit("edit", data);
 };
 // Delete Task
-const deleteTask = (data) => {
-  emit("delete-task", data);
+const Delete = (data) => {
+  emit("delete", data);
 };
 </script>
